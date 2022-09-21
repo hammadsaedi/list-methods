@@ -16,65 +16,69 @@
 public class List {
 
     /**
-     * Appends an element at the end of the array
-     * @param array Integer Type Array, in which element has to be appended (add at last index)
-     * @param number Integer Type number element, which has to be to be appended
-     * @return Integer type Array, with appended element
+     * Insert at last index
+     * Appends given element at the end of the array 
+     * @param array Generic Type Array, in which element has to be appended
+     * @param element Generic Type element, which has to be to be appended
+     * @return Generic type Array, with appended element
+     * @apiNote Both param must be of same Type
     */
-    public static int[] append(int[] array, int number) {
+    public static <T> T[] append(T[] array, T element) {
         // new array creation with size of n + 1 for last element to be appended
-        int[] appendArray = new int[array.length + 1];
-    
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        
         // Copying previous array's elements into new array
         for (int i = 0; i < array.length; i++) {
-            appendArray[i] = array[i];
+            buffer[i] = array[i];
         }
 
         // Appending last element in new array
-        appendArray[array.length] = number;
+        buffer[array.length] = element;
 
         // returning appended array
-        return appendArray;
+        return buffer;
     }
 
     /**
-     * clears elements of array
-     * @param array Integer Type Array to be clear
-     * @return empty array with zero elements
+     * Clears Array Elements
+     * Returns new Array with zero elements
+     * @param array Generic Type Array to be clear
+     * @return Empty array with zero elements
     */
-    public static int[] clear(int[] array) {
+    @SuppressWarnings("unchecked")
+    public static <T> T[] clear(T[] array) {
         // array creation with zero elements
-        int[] clearedArray = new int[0];
-
+        return (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), 0); 
         // returning cleared array with 0 valued elements
-        return clearedArray;
     }
 
     /**
-     * copies array
-     * @param array Integer Type Array to be copied
+     * Copies Array
+     * Returns new Array with same elements
+     * @param array Generic Type Array to be copied
      * @return Copied array
     */
-    // Method to return copy of array
-    public static int[] copy(int[] array) {
+    public static <T> T[] copy(T[] array) {
         // array creation with same size as of array to be copied
-        int[] copiedArray = new int[array.length];
-
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        
         // Copying array
-        copiedArray = array; 
+        buffer = array; 
 
         // returning cleared array with 0 valued elements
-        return copiedArray;
+        return buffer;
     }
 
     /**
      * Counts number of elements with specific in an array
-     * @param array Integer Type Array whose elements are to be counted
-     * @param value Integer Type value of element which has to be counted
+     * Returns number of elements with specific value in an array
+     * @param array Generic Type Array whose elements are to be counted
+     * @param value Generic Type value of element which has to be counted
      * @return Number of Elements
     */
-    // Method to return number of elements with specific value in an array
-    public static int count(int[] array, int value) {
+    public static <T> int count(T[] array, T value) {
         // Variable declarations
         int numberOfElement = 0, index;
         
@@ -91,35 +95,34 @@ public class List {
 
     /**
      * Appends array at the end of another array
-     * @param array1 Integer Type Array, in which another array has to be appended 
-     * @param array2 Integer Type Array which has to be appended
-     * @return Extended Integer Type Array, with appended array 
+     * @param array1 Generic Type Array, in which another array has to be appended 
+     * @param array2 Generic Type Array which has to be appended
+     * @return Extended Generic Type Array, with appended array 
     */
-    // Method to append array with all elements af other array (List Extend Method - Python)
-    public static int[] extend(int[] array1, int[] array2){
+    public static <T> T[] extend(T[] array1, T[] array2){
         // Variable declarations
         int index;
-        int[] extendArray;
+        T[] buffer;
 
         // Copying elements of first array into newly created Extended Array
-        extendArray = copy(array1);
+        buffer = copy(array1);
 
         // for all elements of second array appending into Extended Array
         for (index = 0; index < array2.length; index++){
-            extendArray = append(extendArray, array2[index]);
+            buffer = append(buffer, array2[index]);
         }
 
         // returning extended array
-        return extendArray;
+        return buffer;
     }
 
     /**
      * Finds index of the first element with the specified value
-     * @param array Integer Type array, in which value has to be searched
-     * @param value Integer Type element's value which has to be searched
+     * @param array Generic Type array, in which value has to be searched
+     * @param value Generic Type element's value which has to be searched
      * @return Index of first element in array with the passed value; return -1, in case of no element match
     */
-    public static int index(int[] array, int value){
+    public static <T> int index(T[] array, T value){
         // Variable declarations
         int index;
 
@@ -130,23 +133,22 @@ public class List {
             }
         }
 
-        // Return -1, in case no element have such value 
+        // Return -1, in case no element has such value 
         return  -1;
     }
 
     /**
      * Inserts element at specific index
-     * @param array Integer type array, in which element has to be inserted 
-     * @param number Integer type element, which has to be inserted
-     * @param index Integer type index, where element has to be inserted
-     * @return Integer Type array with element inserted at specific positions
+     * @param array Generic type array, in which element has to be inserted 
+     * @param number Generic type element, which has to be inserted
+     * @param index Generic type index, where element has to be inserted
+     * @return Generic Type array with element inserted at specific positions
     */
-    // Method to add an element at the specified position
-    public static int[] insert(int[] array, int number, int index) {
-        
-        final int size; // size of new array
+    public static <T> T[] insert(T[] array, T value, int index) {
+        // size of new array
+        final int size; 
 
-        if (index >= array.length){ // in case, element is to be inserted in index higher than last-element-index
+        if (index >= array.length){ // in case, element which has to be inserted in index is higher than last-element-index
             size = index + 1; 
             // array.length + (index - (array.length - 1)); --->  Previous-Array's-Length + (New-Array-Index - Highest-Index-of-Previous-Array) ---> // 5 + 5 - 5 + 1 ---> 6
         } else { // + 1 for new element to be inserted
@@ -154,55 +156,58 @@ public class List {
         }
         
         // creating new array with appropriate size
-        int[] updatedArray = new int[size];
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), size);
+        
         
         // Iterating through element of updated array
-        for (int i = 0, j = 0; i < updatedArray.length; i++) {
+        for (int i = 0, j = 0; i < buffer.length; i++) {
             if (i == index){ // when index where elements is to be inserted reach 
-                updatedArray[i] = number; // assigning desired value
+                buffer[i] = value; // assigning desired value
             } else if (j < array.length){ // Copying other elements
-                updatedArray[i] = array[j];
+                buffer[i] = array[j];
                 j++; // for previous array's index; increment only if element is copied
             }      
         }
 
         // returning updated array
-        return updatedArray;
+        return buffer;
     }
 
     /**
      * Removes element at the specified index
-     * @param array integer Type Array, in which element has to be removed
-     * @param index Integer Type position where element has to be removed from array
-     * @return Integer Type Array with removed element
+     * @param array Generic Type Array, in which element has to be removed
+     * @param index Generic Type position where element has to be removed from array
+     * @return Generic Type Array with removed element
     */
     // Method to Remove the element at the specified position
-    public static int[] pop(int[] array, int index) {        
+    public static <T> T[] pop(T[] array, int index) {        
         // creating new array with appropriate size
-        int[] updatedArray = new int[array.length - 1];
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length - 1);
+        
         
         // Iterating through element of parent array
         for (int i = 0, j = 0; i < array.length; i++) {
             if (i == index){ // when index where elements to be remove reach 
                 continue; // skip iterations
             } else { // Copying other elements
-                updatedArray[j] = array[i];
+                buffer[j] = array[i];
                 j++; // for new array's index; increment only if element is copied
             }      
         }
 
         // returning updated array
-        return updatedArray;
+        return buffer;
     }
 
     /**
      * Removes element with specific value
-     * @param array integer Type Array, in which element has to be removed
-     * @param value Integer Type element value which has to be removed
-     * @return Integer Type Array with removed element
+     * @param array Generic Type Array, in which element has to be removed
+     * @param value Generic Type element value which has to be removed
+     * @return Generic Type Array with removed element
     */
-    // Method to Remove the item with the specified value
-    public static int[] remove(int[] array, int value) {  
+    public static <T> T[] remove(T[] array, T value) {  
         // Variable declaration
         int count;
 
@@ -210,38 +215,40 @@ public class List {
         count = count(array, value);
 
         // creating new array with appropriate size
-        int[] updatedArray = new int[array.length - count];
-        
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length - count);
+
         // Iterating through element of parent array
         for (int i = 0, j = 0; i < array.length; i++) {
             if (array[i] == value){ // when valued element to be remove reach 
                 continue; // skip iterations
             } else { // Copying other elements
-                updatedArray[j] = array[i];
+                buffer[j] = array[i];
                 j++; // for new array's index; increment only if element is copied
             }      
         }
 
         // returning updated array
-        return updatedArray;
+        return buffer;
     }
 
     /**
      * Reverses the order of array
-     * @param array Integer Type array which has to be reversed
-     * @return Integer Type array in reversed order
+     * @param array Generic Type array which has to be reversed
+     * @return Generic Type array in reversed order
     */
     // Method to reverse the order of array
-    public static int[] reverse(int[] array) {  
+    public static <T> T[] reverse(T[] array) {  
         // creating new array with appropriate size
-        int[] updatedArray = new int[array.length];
-        
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length);
+                
         // Iterating through element of parent array
         for (int i = 0; i < array.length; i++) {
-            updatedArray[i] = array[(array.length - 1) - i]; // reverse indexing
+            buffer[i] = array[(array.length - 1) - i]; // reverse indexing
         }
 
         // returning updated array
-        return updatedArray;
+        return buffer;
     }   
 }
