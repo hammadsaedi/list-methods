@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Arrays;
 
 /**
  * This program is just to test functionality of List Class, by @hammadsaedi
@@ -6,24 +6,23 @@ import java.util.*;
 */
 public class test {
     public static void main(String[] args){
-        // Integer Type Array
-        int[] array = {0, 1, 2, 3, 4, 5};
-        int[] array2;
+        // // Integer Type Array
+        Integer[] array = {0, 1, 2, 3, 4, 5};
         
         // Displaying Array
         System.out.println("Array: " + Arrays.toString(array));
 
         // Appending number at the end of array
-        array = List.append(array, 6);
+        array = List.append(array, 18);
         // Displaying Array
         System.out.println("Array after appending: " + Arrays.toString(array));
 
         // Coping Array
-        array2 = List.copy(array);
-        System.out.println("Copied Array: " + Arrays.toString(array2));
+        array = List.copy(array);
+        System.out.println("Copied Array: " + Arrays.toString(array));
 
         // Extending Array
-        array = List.extend(array, array2);
+        array = List.extend(array, new Integer[] {7, 8, 9});
         // Displaying Array
         System.out.println("Extended: " + Arrays.toString(array));
 
