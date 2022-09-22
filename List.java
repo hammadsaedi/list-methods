@@ -62,11 +62,8 @@ public class List {
     public static <T> T[] copy(T[] array) {
         // array creation with same size as of array to be copied
         @SuppressWarnings("unchecked")
-        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length);
         
-        // Copying array
-        buffer = array; 
-
         // Iterating through element of array
         for (int index = 0; index < array.length; index++){
             buffer[index] = array[index]; // copying elements
