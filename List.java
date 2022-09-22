@@ -55,7 +55,7 @@ public class List {
 
     /**
      * Copies Array
-     * Returns new Array with same elements
+     * Returns Deep Copy of Array
      * @param array Generic Type Array to be copied
      * @return Copied array
     */
@@ -66,6 +66,11 @@ public class List {
         
         // Copying array
         buffer = array; 
+
+        // Iterating through element of array
+        for (int index = 0; index < array.length; index++){
+            buffer[index] = array[index]; // copying elements
+        }
 
         // returning cleared array with 0 valued elements
         return buffer;
