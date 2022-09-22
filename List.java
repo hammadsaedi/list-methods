@@ -103,15 +103,19 @@ public class List {
     */
     public static <T> T[] extend(T[] array1, T[] array2){
         // Variable declarations
-        int index;
-        T[] buffer;
+        int index = 0;
 
-        // Copying elements of first array into newly created Extended Array
-        buffer = copy(array1);
+        @SuppressWarnings("unchecked")
+        T[] buffer = (T[]) java.lang.reflect.Array.newInstance(array1.getClass().getComponentType(), array1.length + array2.length);
+
+        // for all elements of first array appending into Extended Array
+        for (int i = 0; i < array1.length; i++){
+            buffer[index++] = array1[i];
+        }
 
         // for all elements of second array appending into Extended Array
-        for (index = 0; index < array2.length; index++){
-            buffer = append(buffer, array2[index]);
+        for (int i = 0; i < array2.length; i++){
+            buffer[index++] = array2[i];
         }
 
         // returning extended array
