@@ -86,7 +86,7 @@ public class List {
         
         // Iterating through element of array
         for (index = 0; index < array.length; index++){
-            if (array[index] == value) { // if ith element of array is equal to desired value
+            if (array[index].equals(value)) { // if ith element of array is equal to desired value
                 numberOfElement++; // incrementing number of Element
             }
         }
@@ -130,7 +130,7 @@ public class List {
 
         // Iterating through element of array
         for (index = 0; index < array.length; index++){
-            if (array[index] == value){ // If any array element contains desired value
+            if (array[index].equals(value)){ // If any array element contains desired value
                 return index; // return's elements index
             }
         }
@@ -222,7 +222,7 @@ public class List {
 
         // Iterating through element of parent array
         for (int i = 0, j = 0; i < array.length; i++) {
-            if (array[i] == value){ // when valued element to be remove reach 
+            if (array[i].equals(value)){ // when valued element to be remove reach 
                 continue; // skip iterations
             } else { // Copying other elements
                 buffer[j] = array[i];
