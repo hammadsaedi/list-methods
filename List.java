@@ -257,4 +257,44 @@ public class List {
         // returning updated array
         return buffer;
     }   
+
+    /**
+     * quick sort
+     */
+    public static <T extends Comparable<T>> void quickSort(T[] array) {
+        if (array == null || array.length == 0) {
+            return; // No need to sort an empty array or a null array.
+        }
+        quickSort(array, 0, array.length - 1);
+    }
+
+    private static <T extends Comparable<T>> void quickSort(T[] array, int left, int right) {
+        if (left < right) {
+            int partitionIndex = partition(array, left, right);
+            quickSort(array, left, partitionIndex - 1);
+            quickSort(array, partitionIndex + 1, right);
+        }
+    }
+
+    private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
+        T pivot = array[right];
+        int i = left - 1;
+
+        for (int j = left; j < right; j++) {
+            if (array[j].compareTo(pivot) <= 0) {
+                i++;
+                swap(array, i, j);
+            }
+        }
+
+        swap(array, i + 1, right);
+        return i + 1;
+    }
+
+    private static <T extends Comparable<T>> void swap(T[] array, int i, int j) {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
 }
